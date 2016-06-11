@@ -1,22 +1,21 @@
-Random scribblings useful for development...
-
+# Random scribblings useful for development
 
 ## Developing nodeup
-
+```
 ssh ${HOST} sudo mkdir -p /opt/nodeup/state
 ssh ${HOST} sudo chown -R ${USER} /opt/nodeup
 
 go install k8s.io/kube-deploy/upup/... && rsync ~/k8s/bin/nodeup ${HOST}:/opt/nodeup/nodeup && rsync --delete -avz trees/ ${HOST}:/opt/nodeup/trees/ \
 && rsync state/node.yaml ${HOST}:/opt/nodeup/state/node.yaml \
 && ssh ${HOST} sudo /opt/nodeup/nodeup --v=2  --template=/opt/nodeup/trees/nodeup --state=/opt/nodeup/state --tags=kubernetes_pool,debian_family,gce,systemd
+```
 
-
-# Random misc
+# Misc
 
 Extract the master node config from a terraform output
-
+```
 cat tf/k8s.tf.json | jq -r '.resource.google_compute_instance["kubernetes-master"].metadata.config' > state/node.yaml
-
+```
 
 
 TODOS
